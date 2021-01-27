@@ -1,26 +1,24 @@
 //const http = require('http');
 
+const admin = require('./routes/admin');
+const shop = require('./routes/shop');
+
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
 
-let i = 1;
-
-app.use((req,res,next) => {
-    console.log(`Hello middleware-${i}`);
-    i++;
-    next();
-})
+app.use(bodyParser.urlencoded({ extended : false }));
 
 
-app.use('/urbui',(req,res) => {
-    res.write(`<h1>Laude laag gaye</h1>`);
-    res.end();
-})
+app.use('/admin',admin);
 
-app.use('/',(req,res,next) => {
-    res.send('<h1>Hello Motherfuckers!</h1>')
-    console.log(`Hello middleware-${i}`);
+app.use(shop);
+
+app.use((_,res) => {
+    res
+    .status(404)
+    .send(`<h1>OOPS PAGE NOT FOUND!</h1>`)
 })
 
 //const server = http.createServer(app);

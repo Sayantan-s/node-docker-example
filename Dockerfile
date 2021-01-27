@@ -1,13 +1,13 @@
-    FROM node:12
+    FROM node:14
 
     WORKDIR /app
 
     COPY package.json .
 
-    RUN npm i
+    RUN npm install
 
     COPY . .
 
-    EXPOSE 5000
+    EXPOSE 3000
 
-    CMD ["node", "app.js"]
+    CMD ["node", "server.js"]
