@@ -27,5 +27,5 @@ app.use((_,res) => {
     console.log('running')
 });*/
 
-app.listen(3000,'localhost');
+app.listen(80);
 

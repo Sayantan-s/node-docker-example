@@ -1,13 +1,11 @@
-    FROM node:14
+FROM node
 
-    WORKDIR /app
+WORKDIR /ecom
 
-    COPY package.json .
+COPY . /ecom
 
-    RUN npm install
+RUN npm install
 
-    COPY . .
+EXPOSE 80
 
-    EXPOSE 3000
-
-    CMD ["node", "server.js"]
+CMD ["npm","start"]
