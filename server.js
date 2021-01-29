@@ -11,18 +11,21 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+app.set('view engine','pug');
+app.set('views','template/views')
 
 app.use(bodyParser.urlencoded({ extended : false }));
 app.use(express.static('styles'));
 
-app.use('/admin',admin);
+app.use('/admin',admin.routes);
 
 app.use(shop);
 
 app.use((_,res) => {
     res
     .status(404)
-    .sendFile(path.join(root,'views','404.html'));
+    .render('404')
+    //.sendFile(path.join(root,'views','404.html'));
 })
 
 //const server = http.createServer(app);
