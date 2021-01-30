@@ -8,4 +8,8 @@ html(lang="en")
         link(rel="stylesheet" href="/index.css")
         block moreCss
     body
+        nav.navigation 
+            each navEle in [{ route : '/',name : 'Home'},{ route : '/admin/add-item',name : 'Product' }]
+                .navigation_ele
+                    a(href=navEle.route,class=(`navigation_ele--link ${path === navEle.route ? 'isActive' : ''}`)) #{navEle.name}
         block content

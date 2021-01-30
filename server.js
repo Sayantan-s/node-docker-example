@@ -8,11 +8,14 @@ const root = require('./utils/path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const hbs = require('express-handlebars');
 
 const app = express();
 
-app.set('view engine','pug');
-app.set('views','template/views')
+app.engine('handlebars',hbs());
+//app.set('view engine','pug');
+app.set('view engine','handlebars');
+app.set('views','template/newViews')
 
 app.use(bodyParser.urlencoded({ extended : false }));
 app.use(express.static('styles'));

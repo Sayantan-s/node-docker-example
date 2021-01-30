@@ -12,7 +12,7 @@ router.get('/add-item',(req,res) => {
     //res.sendFile(path.join(root,'views','add-product.html'));
     res
     .status(200)
-    .render('product');
+    .render('product',{ title : 'add-item',path : '/admin/add-item' });
  })
  
  router.post('/add-item',(req,res) => {
