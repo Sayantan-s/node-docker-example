@@ -8,26 +8,33 @@ const root = require('./utils/path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const hbs = require('express-handlebars');
+//const hbs = require('express-handlebars');
+const ejs = require('ejs');
 
 const app = express();
 
-app.engine('handlebars',hbs());
+//app.engine('handlebars',hbs());
 //app.set('view engine','pug');
-app.set('view engine','handlebars');
-app.set('views','template/newViews')
+//app.set('view engine','handlebars');
+app.set('view engine','ejs')
+app.set('views','template/views')
 
 app.use(bodyParser.urlencoded({ extended : false }));
 app.use(express.static('styles'));
 
-app.use('/admin',admin.routes);
+app.use('/admin',admin);
 
 app.use(shop);
 
-app.use((_,res) => {
+app.use((req,res) => {
     res
     .status(404)
-    .render('404')
+    .render('404',{
+        title : req.url,
+        path: req.url,
+        ErrorCss : true,
+        FormCss : false
+    })
     //.sendFile(path.join(root,'views','404.html'));
 })
 

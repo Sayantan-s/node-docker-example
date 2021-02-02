@@ -1,0 +1,29 @@
+.form{
+    margin : 0 auto;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.form .form_input
+{
+    padding : 1rem;
+    font-family: 'Inter', sans-serif;
+    border:none;
+    outline:none;
+    border-radius: 1rem;
+    box-shadow: 1px 5px 15px rgba(0,0,0,0.1);
+}
+.form .form_btn
+{
+    padding : 1rem;
+    font-family: 'Inter', sans-serif;
+    border:none;
+    outline:none;
+    border-radius: 0.5rem;
+    background-color : #8d6cf6;
+    color : white;
+    font-weight: 600;
+}

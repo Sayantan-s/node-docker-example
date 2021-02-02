@@ -1,0 +1,10 @@
+<%- include('includes/layout.ejs') %>
+<body>
+    <%- include('includes/navigation.ejs') %>
+    <form action="/admin/add-item" method="POST" class="form">
+        <input type="text" placeholder="address" name="item" class="form_input">
+        <button type="submit" class="form_btn">Add item</button>
+    </form>
+    <script src="/frontend/index.js" ></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<% const navArr = [
+    {
+        name : 'Home',
+        route : '/'
+    },
+    {
+        name : 'Product',
+        route : '/admin/add-item'
+    }
+]%>
+
+<nav class="navigation">
+    <% navArr.forEach(navItem => { %>
+        <div class="navigation_ele">
+            <a href="<%= navItem.route %>" class="navigation_ele--link <%= path === navItem.route ? 'isActive' : '' %>">
+                <%= navItem.name %>
+            </a>
+        </div>
+    <% }) %> 
+</nav>
