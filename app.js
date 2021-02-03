@@ -20,6 +20,8 @@ app.get('/',(req,res) => {
     })
 })
 
+//api.openweathermap.org/data/2.5/weather?q=kolkata&appid=23241c693dde77dee1381e703ea69f89
+//apikey=23241c693dde77dee1381e703ea69f89
 
 app.listen(PORT,() => {
     console.log(`I am listening to port ${PORT}`)
