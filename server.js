@@ -17,7 +17,7 @@ const app = express();
 //app.set('view engine','pug');
 //app.set('view engine','handlebars');
 app.set('view engine','ejs')
-app.set('views','template/views')
+//app.set('views','template/views')
 
 app.use(bodyParser.urlencoded({ extended : false }));
 app.use(express.static('styles'));
