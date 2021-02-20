@@ -5,8 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/main.css">
 </head>
 <body>
-    <%= dummyText %>
+   <form method="POST" action="/tweet">
+        <input type="text" name="name" placeholder="full name">
+        <input type="text" name="username" placeholder="@username">
+        <input type="text" name="img" placeholder="postUrl">
+        <textarea type="text" name="status" placeholder="status text">
+
+        </textarea>
+        <button type="submit">Submit</button>
+   </form>
+   <div>
+       <% if(tweets) {%>
+            <div>
+               <% tweets.forEach(tweet => {  %>
+                    <figure>
+                        <div class="img">
+                            <img src="<%= tweet.img %>" alt="<%= tweet.id %>" >
+                        </div>
+                        <h1>
+                            <a href="/tweet/<%= tweet.username %>">
+                                <%= tweet.name  %>
+                            </a>
+                        </h1>
+                        <h1><%= tweet.username  %></h1>
+                        <h2><%= tweet.statusText  %></h2>
+                    </figure>
+              <% })  %>
+            </div>
+       <% } else {%>
+            No Tweets yet. 
+        <% } %>
+   </div>
 </body>
 </html>

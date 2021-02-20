@@ -1,7 +1,10 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
+
+
 const Tweet = require("./model/Tweet.model");
+const index = require('./routes/index')
 
 const app = express();
 
@@ -9,16 +12,11 @@ const app = express();
 app.set('view engine','ejs');
 
 app.use(bodyParser.urlencoded({ extended : true }));
-app.use(express.static('styles'));
 app.use(express.json());
+app.use(express.static('static'));
 
-app.get('/',(req,res) => {
-    res
-    .status(200)
-    .render('index',{
-        dummyText : "Hello World!"
-    })
-})
+
+app.use(index);
 
 const port  = process.env.ENV_PORT || 3000;
 
@@ -30,3 +28,4 @@ Tweet
     })    
 })
 .catch(err => console.log(err))
+
