@@ -4,7 +4,6 @@ exports.getIndex = (req,res) => {
    Tweet
    .findAll()
    .then(tweets => {
-       console.log(tweets);
         res
         .status(200)
         .render('index',{
@@ -75,8 +74,32 @@ exports.postTweet = (req,res) => {
     .catch(err => console.log(err));
 }
 
-exports.deleteTweetByID = (req,res) => {
-    res
-    .status(200)
-    .redirect('/');
+exports.deleteTweetById = (req,res) => {
+    const { name } = req.body;
+    console.log(name)
+    Tweet
+    .destroy({
+        where : {
+            username : name
+        }
+    })
+    .then(_ =>{
+        return res
+        .status(200)
+        .json({
+            sucess : true,
+            status : `deleted ${name}`
+        })
+    })
+    .catch(err => console.log(err));
+
+    Tweet
+    .findAll({
+        where : {
+            username : name
+        }
+    })
+    .then(student =>{
+        
+    })
 }

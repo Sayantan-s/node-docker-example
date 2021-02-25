@@ -11,6 +11,10 @@ for(let i = 0; i< deletes.length; i++){
                 name : slug
             })
         })
-        window.location.href = "/delete"
+        .then(res => res.json())
+        .then(data => {
+            return data.sucess && location.reload();
+        })
+        .catch(err => console.log(err))
     })
 }
