@@ -92,14 +92,4 @@ exports.deleteTweetById = (req,res) => {
         })
     })
     .catch(err => console.log(err));
-
-    Tweet
-    .findAll({
-        where : {
-            username : name
-        }
-    })
-    .then(student =>{
-        
-    })
 }
