@@ -32,6 +32,9 @@
                         </h1>
                         <h1><%= tweet.username  %></h1>
                         <h2><%= tweet.statusText  %></h2>
+                        <button
+                        name="<%= tweet.username %>" 
+                        class="delete">Delete &#x1F9D1;&#x200D;&#x1F393;</button>
                     </figure>
               <% })  %>
             </div>
@@ -39,5 +42,6 @@
             No Tweets yet. 
         <% } %>
    </div>
+   <script src="/main.js"></script>
 </body>
 </html>

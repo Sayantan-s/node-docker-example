@@ -68,6 +68,15 @@ exports.postTweet = (req,res) => {
         img : img,
         statusText : status
     })
-    .then(res => console.log("Tweeted"))
+    .then(_ => {
+        console.log("Tweeted");
+        res.redirect('/')
+    })
     .catch(err => console.log(err));
+}
+
+exports.deleteTweetByID = (req,res) => {
+    res
+    .status(200)
+    .redirect('/');
 }

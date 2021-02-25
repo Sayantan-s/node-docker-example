@@ -18,6 +18,14 @@ app.use(express.static('static'));
 
 app.use(index);
 
+app.use((req,res) => {
+    res
+    .status(404)
+    .render(`404`,{
+        responseText : 404,
+    })
+})
+
 const port  = process.env.ENV_PORT || 3000;
 
 Tweet
