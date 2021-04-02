@@ -1,18 +1,20 @@
-const http = require('http');
-require("dotenv").config
+import express from 'express';
+import mongoose from "mongoose"
+import dbConnectMjs from './utils/db.connect.mjs';
 
-const host = 'localhost';
-const PORT = process.env.NODE_PORT
+const app = express();
 
-console.log(PORT)
+const PORT = 3000
 
-http.createServer((req,res) => {
-    if(req.url === "/"){
-        res.statusCode = 200
-        res.setHeader('Content-type','application/json')
-        res.end(JSON.stringify({ name : process.env.USER }));
-    }
+app.use(express.json());
+app.use(express.static('frontend'));
+
+app.get('/',(req,res) => {
+    return res
+    .status(200)
+    .send('Hello!!!!!');
 })
-.listen(3000,host,() => {
-    console.log('Hello honey')
-})
+
+
+dbConnectMjs(_ => app.listen(PORT,_ => console.log(`open localhost:${PORT}`)))
+
