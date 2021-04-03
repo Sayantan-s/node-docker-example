@@ -1,6 +1,9 @@
 import mongoose from "mongoose"
+import dotenv from 'dotenv'
 
-const uri = `mongodb+srv://sayan:Sayantan@123@sayantan.zc13y.mongodb.net/Sayantan?retryWrites=true&w=majority`
+dotenv.config();
+
+const uri = process.env.DB_URI
 
 export default async(callback) => {
 
@@ -13,7 +16,7 @@ export default async(callback) => {
 
         await connection;
 
-        return callback();
+        return callback(); 
    }
    catch(err){
        console.log(err)
