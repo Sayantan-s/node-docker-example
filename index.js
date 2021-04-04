@@ -1,7 +1,8 @@
 import express from 'express';
 import dbConnectMjs from './utils/db.connect.mjs';
 import dotEnv from 'dotenv'
-import bodyParser from 'body-parser';
+import path from 'path'
+import sessionsMjs from './utils/sessions.mjs';
 
 const app = express();
 
@@ -9,14 +10,27 @@ dotEnv.config();
 
 const PORT =  process.env.NODE_PORT || 3000
 
-app.use(bodyParser.urlencoded({ extended : true }))
-app.use(express.json());
-app.use(express.static('frontend'));
+const middlewares = [
+    express.urlencoded({ extended : true }),
+    express.json(),
+    express.static('frontend'),
+    sessionsMjs()
+]
+
+app.use(middlewares);
+
+app.set('views', path.join(path.resolve(path.dirname('')),'views'))
+app.set('view engine','ejs')
 
 app.get('/',(req,res) => {
     return res
     .status(200)
-    .send('Hello!!!!!');
+    .render('index')
+})
+
+app.post('/',(req,res) => {
+    console.log(req.body)
+    res.redirect('/');
 })
 
 
