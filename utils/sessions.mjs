@@ -1,19 +1,21 @@
 import session from 'express-session'
-import MongoDBStore from 'connect-mongodb-session'
+import connectMongo from 'connect-mongodb-session'
 
-MongoDBStore(session)
+const MongoDbStore = connectMongo(session)
 
-const store = new MongoDBStore({
+const store = new MongoDbStore({
     uri : process.env.DB_URI,
     collection : 'session'
 })
 
 export default () => {
     return session({
-        secret : process.env.SECRET_COOKIE_KEY,
         resave : false,
         saveUninitialized : false,
+        secret: process.env.SECRET_COOKIE_KEY,
+        cookie : {
+            maxAge : 3 * 60 * 100
+        },
         store
     })
 }
-
