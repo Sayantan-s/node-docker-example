@@ -5,6 +5,7 @@ import path from 'path'
 import sessionsMjs from './utils/sessions.mjs';
 import home from './routes/user.mjs';
 import auth from './routes/auth.mjs';
+import student from './routes/student.mjs';
 
 const app = express();
 
@@ -26,12 +27,14 @@ app.use(middlewares);
 
 app.use((req,res,next) => {
     res.locals.title = 'Author'
-    res.locals.isAuthenticated = req.session.isAuthenticated
+    res.locals.isLoggedIn = req.session.isLoggedIn
     next()
 })
 
 app.use(home)
 app.use(auth)
+app.use(student)
 
 dbConnectMjs(_ => app.listen(PORT,_ => console.log(`open localhost:${PORT}`)))
 
+ 

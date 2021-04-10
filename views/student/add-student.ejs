@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../includes/seo.ejs') %>
+<body>
+    <%- include('../includes/navbar.ejs') %>
+    <form action="/student" method="POST">
+        <input 
+            type="text"
+            placeholder="Your name"
+            name="name"
+        >
+        <input 
+            type="number"
+            placeholder="University Roll"
+            name="univRoll"
+        >
+        <input 
+            type="number"
+            placeholder="Pursuing year"
+            name="currentYear"
+        >
+        <input 
+            type="number"
+            placeholder="Graduation year"
+            name="gradYear"
+        >
+        <button>Add students</button>
+    </form>
+</body>
+</html>

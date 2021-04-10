@@ -1,0 +1,33 @@
+<nav>
+   <div class="routes">
+        <% if(isLoggedIn) {%>
+            <a href="/">
+                Teachers portal
+            </a>
+        <% } %>
+        <a href="/student">
+            Students
+        </a>
+        <% if(isLoggedIn) { %>
+            <a href="/add-student">
+                Add Students
+            </a>
+        <% } %>
+   </div>
+    <div class="auth">
+        <% if(!isLoggedIn) { %>
+            <a href="/login">
+                Login
+            </a>
+            <a href="/signup">
+                Signup
+            </a>
+        <% } else { %>
+            <form method="POST" action="/logout">
+                <button>
+                    Log out
+                </button>
+            </form>
+        <% } %>
+    </div>
+</nav>

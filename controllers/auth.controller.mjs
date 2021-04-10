@@ -7,16 +7,22 @@ export const getLogin = (req,res) => {
     })
 }
 
-export const postLogin = (req,res,next) => {
+export const postLogin = (req,res) => {
     const { email, pass } = req.body;
     return User
     .findOne({ email })
     .then(user => {
-        console.log(user)
         if(!user) return res.redirect('/signup');
-        req.session.isLoggedIn = true;
-        req.session.user = user
-        return res.redirect('/');
+        console.log(user)
+        bcrypt
+        .compare(pass, user.password, (err,isMatched)=>{
+            if(err) return res.redirect('/signup')
+            else if(isMatched){
+                req.session.isLoggedIn = true;
+                req.session.user = user
+                return req.session.save(_ =>  res.redirect('/'));
+            }
+        })
     })
     .catch(err => res.redirect('/login'));
 }
@@ -27,7 +33,7 @@ export const getSignUp = (req,res) => {
     })
 }
 
-export const postSignUp = (req,res,next) => {
+export const postSignUp = (req,res) => {
     const { name, email, pass } = req.body;
     return User
     .findOne({ email })
@@ -36,7 +42,6 @@ export const postSignUp = (req,res,next) => {
         bcrypt
         .hash(pass,12)
         .then(hashedPassword => {
-            console.log(hashedPassword)
             const newUser = new User({ 
                 name,
                 email,
@@ -45,9 +50,8 @@ export const postSignUp = (req,res,next) => {
             return newUser.save();
         })
         .then(user => {
-            console.log(user)
             req.session.user = user;
-            req.session.isAuthenticated = true
+            req.session.isLoggedIn = true
             req.session.save(_ => res.redirect('/'))
         })
         .catch(err => {
@@ -56,4 +60,10 @@ export const postSignUp = (req,res,next) => {
         })
     })
     .catch(_ => res.redirect('/signup'))
+}
+
+export const logOut = (req,res) => {
+    return req.session.destroy(_ => {
+        res.redirect('/signup')
+    })
 }

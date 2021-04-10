@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../includes/seo.ejs') %>
+<body>
+    <%- include('../includes/navbar.ejs') %>
+   <section>
+       <% if(students.length > 0) { %>
+        <div>
+            <% students.forEach(({name,_id}) => { %>
+                <a href="student/<%= _id %>">
+                    <h1>
+                        <%= name %>
+                    </h1>
+                </a>
+            <% }) %>
+        </div>
+       <% } else { %>
+            <div> No students enrolled!!!! </div>
+        <% } %>
+   </section>
+</body>
+</html>

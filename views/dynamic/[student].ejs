@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../includes/seo.ejs') %>
+<body>
+    <%- include('../includes/navbar.ejs') %>
+    <div>
+       <% if(user) { %>
+        <div>
+            <h1>
+                Name : <%= user.name %>
+            </h1>
+            <h2>
+                University Roll : <%= user.univRoll %>
+            </h2>
+            <h3>
+                <span>
+                    Current Year : <%=  user.year.currentYear %>
+                </span>
+                <span>
+                    Graduation Year : <%=  user.year.gradYear %>
+                </span>
+            </h3>
+        </div>
+       <%  } %>
+    </div>
+</body>
+</html>

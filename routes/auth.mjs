@@ -1,4 +1,5 @@
 import express from 'express';
+import { logOut } from '../controllers/auth.controller.mjs';
 import { postSignUp } from '../controllers/auth.controller.mjs';
 import { postLogin } from '../controllers/auth.controller.mjs';
 
@@ -13,6 +14,8 @@ auth.post('/login',postLogin)
 
 auth.get('/signup',getSignUp)
 
-auth.post('/signup',postSignUp)
+auth.post('/signup',postSignUp);
+
+auth.post('/logout',logOut)
 
 export default auth
