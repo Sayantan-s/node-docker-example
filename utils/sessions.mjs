@@ -13,6 +13,9 @@ export default () => {
         resave : false,
         saveUninitialized : false,
         secret: process.env.SECRET_COOKIE_KEY,
-        store
+        store,
+        cookie : {
+            maxAge : 1000 * 60 * 60 * 2
+        }
     })
 }

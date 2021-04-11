@@ -13,10 +13,9 @@ export const postLogin = (req,res) => {
     .findOne({ email })
     .then(user => {
         if(!user) return res.redirect('/signup');
-        console.log(user)
         bcrypt
         .compare(pass, user.password, (err,isMatched)=>{
-            if(err) return res.redirect('/signup')
+            if(err || !isMatched) return res.redirect('/login')
             else if(isMatched){
                 req.session.isLoggedIn = true;
                 req.session.user = user
