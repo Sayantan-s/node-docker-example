@@ -9,7 +9,8 @@ const Student = new Schema({
     },
     univRoll : {
         type : Number,
-        required : true
+        required : true,
+        minlength: 3
     },
     year : {
         currentYear : {

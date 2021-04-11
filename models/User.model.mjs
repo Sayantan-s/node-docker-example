@@ -6,15 +6,17 @@ const UserModel = new Schema({
     name : {
         type : String,
         required : true,
-        lowercase : true
     },
     email : {
         type : String,
-        required : true
+        required : true,
+        lowercase : true
     },
     password : {
         type : String,
-        required : true
+        required : true,
+        minlength : 6,
+        maxlength: 10
     }
 })
 
