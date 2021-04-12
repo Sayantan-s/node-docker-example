@@ -1,6 +1,14 @@
 import mongoose from 'mongoose'
 import validator from 'validator';
 import bcrypt from 'bcryptjs'
+import nodeMailer from 'nodemailer'
+import sendgridTransport from 'nodemailer-sendgrid-transport'
+
+const Transorter = nodeMailer.createTransport(sendgridTransport({
+    auth : {
+        api_key : process.env.SENDGRID_API_KEY
+    }
+}))
 
 const Schema = mongoose.Schema;
 
@@ -29,5 +37,15 @@ UserModel.pre('save',async function(next){
     this.password = await bcrypt.hash(this.password,salt);
     next();
 })
+
+UserModel.post('save', async function(){
+    Transorter.sendMail({
+        to : this.email,
+        from : 'sayantans.it2018@nsec.ac.in',
+        subject: 'Signup successfull',
+        html : `<h1>${this.name}, you signed up successfully,Fucckk yeah!</h1>`
+    })
+})
+
 
 export default mongoose.model('User',UserModel)

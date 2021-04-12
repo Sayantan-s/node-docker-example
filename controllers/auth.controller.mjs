@@ -1,6 +1,5 @@
 import User from "../models/User.model.mjs";
 import errorHandlerMjs from "../utils/error.handler.mjs";
-import emailValidator from 'deep-email-validator';
 
 export const getLogin = (req,res) => {
     res.render('auth/login',{
