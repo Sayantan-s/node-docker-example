@@ -22,6 +22,6 @@ const Student = new Schema({
             required :true
         }
     },
-}) 
+})
 
 export default mongoose.model('Student',Student)

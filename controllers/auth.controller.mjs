@@ -1,4 +1,6 @@
 import User from "../models/User.model.mjs";
+import errorHandlerMjs from "../utils/error.handler.mjs";
+import emailValidator from 'deep-email-validator';
 
 export const getLogin = (req,res) => {
     res.render('auth/login',{
@@ -33,12 +35,12 @@ export const postSignUp = async (req,res) => {
     }
 
     catch(err){
-            console.log(err.message);
-            return res
+        const error = errorHandlerMjs(err)
+        return res
             .status(400)
             .json({
                 status : 400,
-                message : 'Failed to create account!'
+                error
             })
     }
     
