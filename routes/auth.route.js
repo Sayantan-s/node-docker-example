@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/register',async(req,res,next) => {
     try{
-        const { email } = req.body;
+        const { email,name } = req.body;
         //if(!email || !password) throw createHttpError.BadRequest();
 
         const validated = await authSchema.validateAsync(req.body);
