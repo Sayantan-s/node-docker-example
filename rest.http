@@ -1,0 +1,29 @@
+### CHECK INDEX
+
+GET http://localhost:3000
+
+### SIGNUP ROUTE
+
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{   
+    "name" : "Sayantan Samanta",
+    "email" : "sssamanta789@gmail.com",
+    "password" : "Sayantan"
+}
+
+
+### LOGIN ROUTE
+
+POST http://localhost:3000/login
+
+
+### REFRESH TOKEN ROUTE
+
+POST http://localhost:3000/refresh-token
+
+
+### LOGOUT ROUTE
+
+POST http://localhost:3000/logout
