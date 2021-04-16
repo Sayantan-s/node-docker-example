@@ -24,4 +24,13 @@ UserSchema.pre('save',async function(next){
     next();
 })
 
+UserSchema.methods.passwordIsValid = async function(password){
+    try{
+        return await bcrypt.compare(password, this.password);
+    }   
+    catch(err){
+        throw err;
+    } 
+}
+
 module.exports = model('user',UserSchema);

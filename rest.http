@@ -8,15 +8,21 @@ POST http://localhost:3000/register
 Content-Type: application/json
 
 {   
-    "name" : "John Samanta",
-    "email" : "SSSAMANTA789@gmail.com",
-    "password" : "Sayantan"
+    "name" : "Urban Example",
+    "email" : "urbanui@google.com",
+    "password" : "Sammyboi"
 }
 
 
 ### LOGIN ROUTE
 
 POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+   "email" : "sssamanta@google.com",
+   "password" : "Sayantan"
+}
 
 
 ### REFRESH TOKEN ROUTE
