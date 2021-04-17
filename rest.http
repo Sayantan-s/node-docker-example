@@ -1,7 +1,7 @@
 ### CHECK INDEX
 
 GET http://localhost:3000
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTg2NTIxNjEsImV4cCI6MTYxODY1NTc2MSwiYXVkIjoiNjA3OWM5MTVhM2U5ZDAzYTAzNjA1YmQ0IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.fWk-4YGW0f1E6O-81DPGlGyceIn5j2GZQAMqODDvB14
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTg2NjQ4MjQsImV4cCI6MTYxODY2NDg3NCwiYXVkIjoiNjA3OWM5MTVhM2U5ZDAzYTAzNjA1YmQ0IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.0CO7AmVGwv0YVRC1vnabj5Z-PZ8KqVp6Erq8cHUwE3c
 
 ### SIGNUP ROUTE
 
@@ -9,8 +9,8 @@ POST http://localhost:3000/register
 Content-Type: application/json
 
 {   
-    "name" : "Urban Example",
-    "email" : "urbanui@google.com",
+    "name" : "Sayantan",
+    "email" : "sssamanta@gmail.com",
     "password" : "Sammyboi"
 }
 
@@ -21,14 +21,19 @@ POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-   "email" : "sssamanta@google.com",
-   "password" : "Sayantan"
+   "email" : "sssamanta@gmail.com",
+   "password" : "Sammyboi"
 }
 
 
 ### REFRESH TOKEN ROUTE
 
 POST http://localhost:3000/refresh-token
+Content-Type: application/json
+
+{
+    "refreshToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTg2NzM0MTQsImV4cCI6MTYxODY3NzAxNCwiYXVkIjoiNjA3YWY3YjBjNDM2Y2MwNDIwNWQ4YzE2IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.JiPYk1TGHjb83ykIS8CWDvnoGjb8nx7hYdDkpIXFfYE"
+}
 
 
 ### LOGOUT ROUTE

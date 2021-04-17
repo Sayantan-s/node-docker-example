@@ -1,6 +1,6 @@
 const express = require('express');
 const createHttpError = require('http-errors');
-const { signAccessToken } = require('../helper/jwt_helper');
+const { signAccessToken, signRefreshToken } = require('../helper/jwt_helper');
 const { authSchema,loginSchema } = require('../helper/validation_schema');
 const User = require('../models/User.Model');
 const router = express.Router();
@@ -17,11 +17,13 @@ router.post('/register',async(req,res,next) => {
         
         const newUser = await User.create(validated);
         const accessToken = await signAccessToken(newUser._id)
+        const refreshToken = await signRefreshToken(newUser._id)
         return res
         .status(201)
         .send({
             ...newUser._doc,
-            accessToken
+            accessToken,
+            refreshToken
         });
     }
     catch(err){
@@ -44,8 +46,10 @@ router.post('/login',async(req,res,next) => {
         if(!isMatched) throw createHttpError.Unauthorized('Username/password invalid!')
 
         const accessToken = await signAccessToken(user._id);
+        const refreshToken = await signRefreshToken(user._id)
 
-        return res.send({ accessToken })
+
+        return res.send({ accessToken,refreshToken })
     }
     catch(err){
         if(err.isJoi) console.log(err.isJoi) //return next(createHttpError.BadRequest('Invalid email/password!'))
@@ -53,12 +57,19 @@ router.post('/login',async(req,res,next) => {
     }
 })
 
+
+router.post('/refresh-token',async(req,res,next) => {
+    try {
+        
+        res.send({
+            message : "Hello Refresh!"
+        })
+
+    } catch (error) {
+        next(error)
+    }
+})
+
 module.exports = router
 
 
-/**
- * Fetches all the template, can also filter template on the basis of certain properties such as status, slug et...
- * @param {*} request
- * @param {*} response
- * @returns
- */
