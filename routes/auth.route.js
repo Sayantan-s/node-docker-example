@@ -48,7 +48,7 @@ router.post('/login',async(req,res,next) => {
         return res.send({ accessToken })
     }
     catch(err){
-        if(err.isJoi) console.log(err.isJoi)//return next(createHttpError.BadRequest('Invalid email/password!'))
+        if(err.isJoi) console.log(err.isJoi) //return next(createHttpError.BadRequest('Invalid email/password!'))
         next(err) 
     }
 })
