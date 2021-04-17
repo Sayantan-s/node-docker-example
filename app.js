@@ -3,6 +3,9 @@ const morgan = require('morgan');
 const createError = require('http-errors')
 
 const authRoute = require('./routes/auth.route')
+const homeRoute = require('./routes/home.route')
+
+
 
 require('dotenv').config();
 require('./helper/init_mongodb');
@@ -18,6 +21,7 @@ const middlewares = [
 
 app.use(middlewares);
 
+app.use(homeRoute)
 app.use(authRoute); 
 
 app.use((req,res,next) => {

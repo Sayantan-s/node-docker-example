@@ -54,3 +54,11 @@ router.post('/login',async(req,res,next) => {
 })
 
 module.exports = router
+
+
+/**
+ * Fetches all the template, can also filter template on the basis of certain properties such as status, slug et...
+ * @param {*} request
+ * @param {*} response
+ * @returns
+ */
