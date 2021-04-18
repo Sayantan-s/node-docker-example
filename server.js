@@ -1,39 +1,47 @@
 const express = require("express");
-const bodyParser = require('body-parser');
-const ejs = require('ejs');
+const morgan = require("morgan");
+require('dotenv').config();
 
 
-const Tweet = require("./model/Tweet.model");
-const index = require('./routes/index')
+const dbConnect = require('./helpers/init_mongodb');
+const authRoutes = require('./routes/auth.route');
+const homeRoutes = require('./routes/home.route');
+
 
 const app = express();
 
 
-app.set('view engine','ejs');
+const middlewares = [
+    express.urlencoded({ extended : true }),
+    express.json(),
+    express.static('static'),
+    morgan('dev'),
+]
+const port  = process.env.ENV_PORT || 3000;
 
-app.use(bodyParser.urlencoded({ extended : true }));
-app.use(express.json());
-app.use(express.static('static'));
 
+app.use(middlewares); 
 
-app.use(index);
+app.use(authRoutes);
+app.use(homeRoutes)
 
-app.use((req,res) => {
-    res
-    .status(404)
-    .render(`404`,{
-        responseText : 404,
+app.use((req,res,next) => {
+    const error = new Error('Page Not Found');
+    error.status = 404;
+    next(error)
+})
+
+app.use((err,req,res,next) => {
+    const errStatus = err.status || 500;
+    return res
+    .status(errStatus)
+    .send({
+        status : errStatus,
+        message : err.message
     })
 })
 
-const port  = process.env.ENV_PORT || 3000;
 
-Tweet
-.sync()
-.then(_ =>{
-    app.listen(port,'localhost',_ => {
-        console.log('Hi from ' + port);
-    })    
+dbConnect(() => {
+    app.listen(port,_ => console.log(`live on ${port}`))
 })
-.catch(err => console.log(err))
-
