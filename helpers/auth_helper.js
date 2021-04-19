@@ -3,14 +3,35 @@ const jwt = require('jsonwebtoken')
 
 module.exports = class AuthHelper{
 
-    static create_JWT(userId){
-        const secret = process.env.JWT_ACCESS_SECRET;
-        const options = { issuer : 'sayantan.com', expiresIn: '30s', audience: '' + userId }
+    constructor(){
+        this.access_secret = process.env.JWT_ACCESS_SECRET;
+        this.refresh_secret = process.env.JWT_REFRESH_SECRET
+    }
+
+    create_access_JWT(userId){
+        const options = { issuer : 'sayantan.com', expiresIn: '50s', audience: '' + userId }
         const payload = { userId }
 
-        const token = jwt.sign(payload,secret,options)
+        const token = jwt.sign(payload,this.access_secret,options);
 
         return token;
+    }
+
+    verify_access_JWT(token){
+        return jwt.verify(token, this.access_secret);
+    }
+
+    create_refresh_JWT(userId){
+        const options = { issuer : 'sayantan.com', expiresIn: '1yr', audience: '' + userId }
+        const payload = { userId }
+
+        const token = jwt.sign(payload,this.refresh_secret,options);
+
+        return token;
+    }
+
+    verify_refresh_JWT(token){
+        return jwt.verify(token, this.refresh_secret);
     }
 
     static async hashPassword(password){

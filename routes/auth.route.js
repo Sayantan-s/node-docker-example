@@ -4,7 +4,6 @@ const { isAuth } = require('../middlewares/Auth');
 const router = require('express').Router();
 
 router
-.use(isAuth)
 .route('/signup')
 .post(postSignUp);
 

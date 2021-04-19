@@ -10,7 +10,12 @@ Content-Type: application/json
 ###
 
 POST http://localhost:5000/login
+Content-Type: application/json
 
+{
+    "email" : "sssamanta7898@gmail.com",
+    "password" : "Jake2189"
+}
 ###
 
 POST http://localhost:5000/logout
@@ -18,5 +23,3 @@ POST http://localhost:5000/logout
 ###
 
 GET  http://localhost:5000
-
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDdjOTFiZTg4MTQ3NjUwZTk5YmE3MjciLCJpYXQiOjE2MTg3NzY1MTEsImV4cCI6MTYxODc3NjU0MSwiYXVkIjoiNjA3YzkxYmU4ODE0NzY1MGU5OWJhNzI3IiwiaXNzIjoic2F5YW50YW4uY29tIn0.YYrdYOV_2p_fSJplgA_u58-wvKet71lPcJOPQOzRMlI

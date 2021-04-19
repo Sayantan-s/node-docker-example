@@ -1,10 +1,10 @@
 const AuthHelper = require('../helpers/auth_helper');
 const User = require('../model/User.model');
-const { Login_Schema } = require('../validators/auth.validators')
+const { SignUp_Schema,Login_Schema } = require('../validators/auth.validators')
 
 exports.postSignUp = async (req,res,next) => {
    try {
-        const sanitized_data = await Login_Schema.validateAsync(req.body);
+        const sanitized_data = await SignUp_Schema.validateAsync(req.body);
 
         const { email, username } = sanitized_data; 
 
@@ -18,7 +18,7 @@ exports.postSignUp = async (req,res,next) => {
 
         const newUser = await User.create(sanitized_data);
 
-        const token = AuthHelper.create_JWT(newUser._id);
+        const token =  new AuthHelper().create_access_JWT(newUser._id);
 
         res
         .status(201)
@@ -29,8 +29,34 @@ exports.postSignUp = async (req,res,next) => {
    }
 }
 
-exports.postLogin = (req,res,next) => {
-    res.send({ message : "Hello Login" })
+exports.postLogin = async(req,res,next) => {
+    try {
+
+        const sanitized_data = await Login_Schema.validateAsync(req.body);
+
+        const { email } = sanitized_data;
+
+        const user = await User.findOne({ email }).lean();
+
+        console.log(user);
+
+        if(!user){
+            const error = new Error('You are not registered, please Signup!');
+            error.status = 401;
+            next(error)
+        }
+
+        const AuthUtils = new AuthHelper();
+
+        const token = AuthUtils.create_access_JWT(user._id);
+
+        const VerifyJWT = AuthUtils.verify_access_JWT(token);
+
+        res.send({ ...user,accessToken :token, VerifyJWT });
+
+    } catch (error) {
+        next(error)
+    }
 
 }
 
