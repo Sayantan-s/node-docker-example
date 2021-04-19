@@ -9,8 +9,8 @@ module.exports = class AuthHelper{
     }
 
     create_access_JWT(userId){
-        const options = { issuer : 'sayantan.com', expiresIn: '50s', audience: '' + userId }
-        const payload = { userId }
+        const options = { issuer : 'sayantan.com', expiresIn: '1hr', audience: '' + userId }
+        const payload = { }
 
         const token = jwt.sign(payload,this.access_secret,options);
 

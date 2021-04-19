@@ -23,3 +23,4 @@ POST http://localhost:5000/logout
 ###
 
 GET  http://localhost:5000
+###Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTg4NjQ5OTAsImV4cCI6MTYxODg2ODU5MCwiYXVkIjoiNjA3ZGNmNWJlZTRjMTgwZThlMjU5Y2UxIiwiaXNzIjoic2F5YW50YW4uY29tIn0.w3VfF-QqfLKYioQ1b5llqejOb1EL0RuzKnKyEq7zDgc
