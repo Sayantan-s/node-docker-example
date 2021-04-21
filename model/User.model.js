@@ -18,7 +18,7 @@ const UserSchema = new Schema({
         minlength: 7,
         select : false
     }
-})
+},{ timestamps : true })
 
 UserSchema.pre('save', async function(next){
     this.password = await AuthHelper.hashPassword(this.password);

@@ -8,7 +8,7 @@ module.exports = async(callback) => {
             useCreateIndex : true,
             useFindAndModify : true, 
             useUnifiedTopology : true,
-            useNewUrlParser : true
+            useNewUrlParser : true,
         })
 
         console.log("Connected to Mongodb through mongoose!")

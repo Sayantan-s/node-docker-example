@@ -18,9 +18,9 @@ exports.postSignUp = async (req,res,next) => {
 
         const newUser = await User.create(sanitized_data);
 
-        const token =  new AuthHelper().create_access_JWT(newUser._id);
+        const token =  AuthHelper.sign_JWT({ id : newUser._id });
 
-        res
+        return res
         .status(201)
         .send({ ...newUser._doc,accessToken : token });
 
@@ -46,13 +46,7 @@ exports.postLogin = async(req,res,next) => {
             next(error)
         }
 
-        const AuthUtils = new AuthHelper();
-
-        const token = AuthUtils.create_access_JWT(user._id);
-
-        const VerifyJWT = AuthUtils.verify_access_JWT(token);
-
-        res.send({ ...user,accessToken :token, VerifyJWT });
+        res.send({ ...user });
 
     } catch (error) {
         next(error)
