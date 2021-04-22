@@ -1,9 +1,22 @@
-exports.isAuth = (req,res,next) => {
-    const token = req.headers.authorization.split(' ')[1];
-    if(!token) {
+const AuthHelper = require("../helpers/auth_helper");
+
+exports.isAuth = async(req,res,next) => {
+    const authHeader = req.headers.authorization;
+    if(!authHeader){
         const error = new Error("You are not logged in!");
         error.status = 401;
         return next(error);
     }
-    next();
+    const token = authHeader.split(' ')[1];
+
+    try{
+        const { id } = await AuthHelper.verify_JWT(token);
+
+        req.userId = id;
+    
+        next();
+    }
+    catch(err){
+        next(err);
+    }
 }

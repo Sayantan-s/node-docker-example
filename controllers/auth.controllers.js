@@ -34,19 +34,29 @@ exports.postLogin = async(req,res,next) => {
 
         const sanitized_data = await Login_Schema.validateAsync(req.body);
 
-        const { email } = sanitized_data;
+        const { email, password } = sanitized_data;
 
         const user = await User.findOne({ email }).lean();
-
-        console.log(user);
 
         if(!user){
             const error = new Error('You are not registered, please Signup!');
             error.status = 401;
-            next(error)
+            return next(error)
+        }
+        
+        const isValid = await AuthHelper.validatePassword(user.password, password);
+
+        console.log(isValid)
+
+        if(!isValid){
+            const error = new Error('Wrong credentials, Please try again!');
+            error.status = 401;
+            return next(error)
         }
 
-        res.send({ ...user });
+        const access_token = await AuthHelper.sign_JWT({  id : user._id })
+
+        res.send({ ...user,access_token });
 
     } catch (error) {
         next(error)
