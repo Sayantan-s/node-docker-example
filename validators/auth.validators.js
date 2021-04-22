@@ -29,5 +29,9 @@ const Login_Schema = Joi.object({
     .min(7)
 })
 
+const RefreshToken_Schema = Joi.object({
+    refresh_token : Joi.string().required()
+})
 
-module.exports = { SignUp_Schema, Login_Schema }
+
+module.exports = { SignUp_Schema, Login_Schema, RefreshToken_Schema }

@@ -17,7 +17,13 @@ Content-Type: application/json
     "password" : "Jake2189"
 }
 ###
+POST http://localhost:5000/refresh
+Content-Type: application/json
 
+{
+   "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODFjNjU0MDE4YWY1MmUxMzkwMDU3YiIsImlhdCI6MTYxOTExNzY1MywiZXhwIjoxNjUwNjc1MjUzLCJpc3MiOiJzYXlhbnRhbi5jb20ifQ.6MAqsOvRCeCLKnR135Qt7cQC1sqNh0RYloIbgOZRCVw"
+}
+###
 POST http://localhost:5000/logout
 
 ###
