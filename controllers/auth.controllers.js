@@ -126,6 +126,19 @@ exports.postRefresh = async(req,res,next) => {
     }
 }
 
-exports.postLogout = (req,res,next) => {
-    res.send({ message : "Hello LogOut" })
+exports.postLogout = async(req,res,next) => {
+    console.log(req.body)
+    const { refresh_token,error } = RefreshToken_Schema.validate(req.body);
+    console.log(refresh_token)
+    if(error){
+        const error = new Error('Invalid refresh Token!');
+        error.status = 422;
+        return next(error)
+    };
+    try {
+        //await RefreshToken.deleteOne({ refresh_token }).lean();
+        res.send({ message : "Hello LogOut" })
+    } catch (error) {
+        next(error)
+    }
 }

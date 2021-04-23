@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 
 module.exports = class AuthHelper{
 
-    static sign_JWT(payload, expiry = '1hr', secret = process.env.JWT_ACCESS_SECRET){
+    static sign_JWT(payload, expiry = '15m', secret = process.env.JWT_ACCESS_SECRET){
         const options = { issuer : 'sayantan.com', expiresIn: expiry }
         return jwt.sign(payload,secret,options);
 

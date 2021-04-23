@@ -1,4 +1,5 @@
 const { postLogin, postSignUp, postLogout, postRefresh } = require('../controllers/auth.controllers');
+const { isAuth } = require('../middlewares/Auth');
 
 const router = require('express').Router();
 
@@ -17,7 +18,7 @@ router
 
 router
 .route('/logout')
-.post(postLogout);
+.post(isAuth, postLogout);
 
 
 module.exports = router
