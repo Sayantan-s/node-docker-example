@@ -23,8 +23,8 @@ export default (dirname) => {
     const fileFilter = (req,file,cb) => {
         if(file.mimetype === 'image/jpg' ||
         file.mimetype === 'image/png' ||
-        file.mimetype === 'image/jpeg') return(null, true)
-        return (null, false)
+        file.mimetype === 'image/jpeg') return cb(null, true)
+        return cb(null, false)
     }
     
     return multer({ storage, fileFilter })

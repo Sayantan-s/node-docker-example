@@ -1,28 +1,5 @@
 import express from 'express'
-import multer from 'multer';
-
-const storage = multer.diskStorage({
-    destination : (req,file,callback) => {
-        return callback(null, 'images')
-    },
-    filename : (req,file,callback) => {
-        const name = file.originalname.split('.');
-        const saveAs = name[0] + '-' + Date.now() + '.' + name[1];
-        return callback(null,saveAs)
-    }   
-})
-
-const fileFilter = (req,file,cb) => {
-    if(file.mimetype === 'image/jpg' ||
-    file.mimetype === 'image/png' ||
-    file.mimetype === 'image/jpeg') return(true, false)
-    return (null, false)
-}
-
-const upload = multer({
-    storage,
-    fileFilter
-})
+import use_multer from '../helpers/use_multer'
 
 const router = express.Router()
 
@@ -43,7 +20,7 @@ router
     .status(200)
     .render('home/form',{ type })
 })
-.post(upload.single('file'),async(req,res,next) => {
+.post(use_multer('images').single('file'),async(req,res,next) => {
     const { 
         body,
         file,
