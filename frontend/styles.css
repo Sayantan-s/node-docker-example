@@ -1,3 +1,19 @@
 body{
     background-color : greenyellow;
+    font-family: sans-serif;
+}
+
+.nav{
+    background-color: rgb(65, 65, 65);
+    color : white;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 5rem;
+}
+
+a{
+    color : white;
+    text-decoration : none;
+    font-weight: bold;
+    margin: 0 1rem;
 }
