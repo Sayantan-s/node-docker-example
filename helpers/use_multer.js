@@ -28,4 +28,5 @@ export default (dirname) => {
     }
     
     return multer({ storage, fileFilter })
+    
 }

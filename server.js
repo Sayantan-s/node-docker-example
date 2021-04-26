@@ -9,6 +9,7 @@ const app = express();
 const middlewares = [
     morgan('dev'),
     express.static('frontend'),
+    express.static('images'),
     express.urlencoded({ extended : true }),
     express.json(),
 ]
