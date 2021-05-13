@@ -2,8 +2,8 @@ const router = require('express').Router();
 
 router
 .route('/')
-.get(async(req,res,next) => {
-    res.send({ message: "Hello from home" })
+.get((req,res,next) => {
+   return res.render('index')
 })
 
 module.exports = router

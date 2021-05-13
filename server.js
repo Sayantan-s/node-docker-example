@@ -1,15 +1,17 @@
 const express = require('express')
 const morgan = require('morgan')
 const { PORT } = require('./config')
-const path = require('path')
 const homeroute = require('./routes/home.route')
 const authroute = require('./routes/auth.route')
+const ejs = require('ejs')
 
 
 require('./helpers/init_mongodb')
 
 
 const app = express()
+
+app.set('view engine', 'ejs')
 
 const middlewares = [
     morgan('dev'),
@@ -23,4 +25,4 @@ app.use(middlewares)
 app.use(homeroute)
 app.use('/auth',authroute)
 
-app.listen(_=> console.log(`Live on port ${PORT || 5000}`))
+app.listen(PORT,_=> console.log(`Live on port ${PORT || 5000}`)) 
