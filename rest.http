@@ -2,6 +2,14 @@ POST http://localhost:3000/auth/login
 
 ###
 POST http://localhost:3000/auth/register
+Content-Type: "application/json"
+
+{
+    "name" : "Sayantan Samanta",
+    "email" : "sssamanta789@gmail.com",
+    "password" : "sssamanta",
+    "confirm_password" : "sssamanta"
+}
 
 ###
 POST http://localhost:3000/auth/logout
