@@ -6,6 +6,8 @@ const { PORT } = require('./config');
 const homeRouter = require('./routes/home.route');
 const authRouter = require('./routes/auth.route');
 
+const { pageNotFound, error_handler } = require('./helpers/errorHandler')
+
 require('./helpers/init_mongodb');
 
 const app = express();
@@ -18,8 +20,11 @@ const midddlewares = [
 
 app.use(midddlewares)
  
-app.use(homeRouter)
+app.use(homeRouter)  
 app.use('/auth',authRouter)
+
+app.use(pageNotFound);
+app.use(error_handler)
 
 
 app.listen(PORT,_ => console.log(`live on localhost:${PORT || 5000}`));

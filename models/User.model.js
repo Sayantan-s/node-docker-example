@@ -20,10 +20,13 @@ const UserSchema = new Schema({
         required : true,
     },
 
-    confirmPassword : {
+    confirmPassword : String,
+    role : {
         type : String,
-        required : true
+        required : true,
+        default : 'customer'
     }
+
 }, { timestamps : true })
 
 UserSchema.pre('save',async function(next){

@@ -1,4 +1,5 @@
-const { registerValidator } = require('../helpers/validators');
+const AuthHelper = require('../helpers/auth_helper');
+const { registerValidator, loginValidator } = require('../helpers/validators');
 const User = require('../models/User.model');
 
 const router = require('express').Router();
@@ -8,7 +9,7 @@ router
 .post(async(req,res,next) =>{
     console.log(req.body)
     try {
-        const { error, email, password  } = await registerValidator.validateAsync(req.body);
+        const { error, email, password, name  } = await registerValidator.validateAsync(req.body);
         if(error)
             next(error)
         const userExists = await User.exists({ email });
@@ -17,8 +18,11 @@ router
             err.status = 409;
             return next(err);
         }
-        await User.create(req.body);
-        return res.send({ message: email })
+        await User.create({ email, password, name });
+        return res.status(201).send({
+            message: 'Your account has been created!',
+            status : 201
+        })
     } catch (err) {
         const error = new Error(err.message);
         next(error);
@@ -28,7 +32,22 @@ router
 router
 .route('/login')
 .post(async(req,res,next) =>{
-    return res.send({ message: 'Hello login' })
+    try {
+        const { error, email, password } = await loginValidator.validateAsync(req.body);
+        if(error)
+            next(error);
+        const userExists = await User.exists({ email });
+        if(!userExists){
+            const err = new Error('You are not registerd, please signup!');
+            err.status = 401;
+            return next(err);
+        }
+        const isPasswordCorrect = AuthHelper.verifyPassword()
+        return res.send({ message: 'Hello login' })    
+    } catch (error) {
+        const err = new Error(error.message);
+        next(err);
+    }
 })
 
 router

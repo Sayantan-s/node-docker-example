@@ -22,7 +22,7 @@ dbase.on('disconnected',_ => {
     console.log(`Disconnected from db`)
 })
 
-process.on('SIGINT', async () => {
+process.on('SIGINT', async () => { 
     await dbase.close();
     console.log('Bye dev...')
     process.exit(0);
