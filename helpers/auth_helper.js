@@ -5,7 +5,7 @@ module.exports = class AuthHelper{
         const salt = await bcrypt.genSalt(9);
         return await bcrypt.hash(password, salt);
     }
-    static async verifyPassword(hashedPass, password){
-        return await bcrypt.compare(hashedPass, password)
+    static async verifyPassword(password, hash){
+        return await bcrypt.compare(password, hash)
     }
 }

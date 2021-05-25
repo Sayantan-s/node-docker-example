@@ -18,7 +18,7 @@ class CustomError extends Error{
         this.message = message;
     }
 
-    static alreadyExists(message){
+    static userExistence(message){
         return new CustomError(409, message)
     }
 }
