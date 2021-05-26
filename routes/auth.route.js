@@ -1,5 +1,6 @@
 const AuthHelper = require('../helpers/auth_helper');
 const { CustomError } = require('../helpers/errorHandler');
+const JWTService = require('../helpers/JWT_service');
 const { registerValidator, loginValidator } = require('../helpers/validators');
 const User = require('../models/User.model');
 
@@ -14,11 +15,15 @@ router
             next(error)
         const userExists = await User.exists({ email });
         if(userExists){
-            const err = CustomError.userExistence('You are already registered!');
+            const err = CustomError.userExistence('There is already someone using this email!');
             return next(err);
         }
-        await User.create({ email, password, name });
+        const user = await User.create({ email, password, name });
+
+        const accessToken = await JWTService.sign_JWT({ id : user._id, role : user.role })
+
         return res.status(201).send({
+            accessToken,
             message: 'Your account has been created!',
             status : 201
         })
@@ -39,17 +44,22 @@ router
         const userExists = await User.exists({ email });
 
         if(!userExists){
-            const err = new Error('You are not registerd, please signup!');
+            const err = CustomError.userExistence('You are not registered, please signup!',401);
             return next(err);
         }
 
-        const user = await User.findOne({ email }).select('email password').lean()
+        const user = await User.findOne({ email }).select('email password role').lean()
 
         const isPasswordCorrect = await AuthHelper.verifyPassword(password, user.password);
 
-        console.log(isPasswordCorrect)
+        if(!isPasswordCorrect){
+            const error = CustomError.userExistence('Invalid email or password!',400);
+            next(error)  
+        }
 
-        return res.send({ message: 'Hello login' })    
+        const accessToken = await JWTService.sign_JWT({ id : user._id, role : user.role })
+
+        return res.send({ accessToken })    
         
     } catch (error) {
         const err = new Error(error.message);

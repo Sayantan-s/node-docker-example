@@ -14,12 +14,13 @@ const error_handler = (err, req, res, next) => {
 
 class CustomError extends Error{
     constructor(status = 500, message){
+        super();
         this.status = status;
         this.message = message;
     }
 
-    static userExistence(message){
-        return new CustomError(409, message)
+    static userExistence(message, status = 409){
+        return new CustomError(status, message)
     }
 }
 
