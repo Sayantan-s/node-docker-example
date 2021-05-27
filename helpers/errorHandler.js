@@ -1,6 +1,5 @@
 const pageNotFound = (req, res, next) => {
-    const error = new Error('Page not found!');
-    error.status = 404;
+    const error = CustomError.notFound();
     next(error)
 }
 
@@ -20,6 +19,10 @@ class CustomError extends Error{
     }
 
     static userExistence(message, status = 409){
+        return new CustomError(status, message)
+    }
+
+    static notFound(message="Page not found!", status = 404){
         return new CustomError(status, message)
     }
 }

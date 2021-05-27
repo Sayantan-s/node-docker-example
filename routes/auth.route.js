@@ -1,7 +1,9 @@
+const { REFRESH_SECRET } = require('../config');
 const AuthHelper = require('../helpers/auth_helper');
 const { CustomError } = require('../helpers/errorHandler');
 const JWTService = require('../helpers/JWT_service');
 const { registerValidator, loginValidator } = require('../helpers/validators');
+const Refreshtoken = require('../models/RefreshToken.model');
 const User = require('../models/User.model');
 
 const router = require('express').Router();
@@ -20,10 +22,18 @@ router
         }
         const user = await User.create({ email, password, name });
 
-        const accessToken = await JWTService.sign_JWT({ id : user._id, role : user.role })
+        const accessToken = await JWTService.sign_JWT({ id : user._id, role : user.role });
+        const refreshToken = await JWTService.sign_JWT(
+            { id : user._id, role : user.role },
+            '1yr',
+            REFRESH_SECRET
+        )
+
+        await Refreshtoken.create({ token : refreshToken });
 
         return res.status(201).send({
             accessToken,
+            refreshToken,
             message: 'Your account has been created!',
             status : 201
         })
@@ -48,7 +58,7 @@ router
             return next(err);
         }
 
-        const user = await User.findOne({ email }).select('email password role').lean()
+        const user = await User.findOne({ email }).select('email password role -_id').lean();
 
         const isPasswordCorrect = await AuthHelper.verifyPassword(password, user.password);
 
@@ -57,14 +67,28 @@ router
             next(error)  
         }
 
-        const accessToken = await JWTService.sign_JWT({ id : user._id, role : user.role })
+        const accessToken = await JWTService.sign_JWT({ id : user._id, role : user.role });
+        const refreshToken = await JWTService.sign_JWT(
+            { id : user._id, role : user.role },
+            '1yr',
+            REFRESH_SECRET
+        )
 
-        return res.send({ accessToken })    
+        await Refreshtoken.create({ refreshToken });
+
+        return res.send({ accessToken, refreshToken })    
         
     } catch (error) {
         const err = new Error(error.message);
         next(err);
     }
+})
+
+
+router
+.route('/refresh')
+.post(async(req, res, next) => {
+    return res.send({ message: req.body })
 })
 
 router
