@@ -1,20 +1,29 @@
 const express = require('express');
 const morgan = require('morgan');
+const cluster = require('cluster');
 
-const app = express();
 
-const middlewares = [
-    morgan('dev')
-]
+if(cluster.isMaster){
+    cluster.fork();
+}
+else{
+    const app = express();
 
-app.use(middlewares);
+    const middlewares = [
+        morgan('dev')
+    ]
 
-app.get('/',(req,res) => {
-    (function (duration){
+    app.use(middlewares);
+
+    function x(duration){
         const start = Date.now();
         while(Date.now() - start < duration){}
-    })(5000)
-    res.end('<h1> Hello </h1>');
-})
+    }
 
-app.listen(3000, _ => console.log("live 3000"))
+    app.get('/',(req,res) => {
+        x(5000)
+        res.end('<h1> Hello </h1>');
+    })
+
+    app.listen(8000, _ => console.log("live 3000"))
+}
